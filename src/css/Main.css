@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Agdasima&family=IBM+Plex+Sans:wght@100&family=Lato:wght@300&family=Roboto+Condensed:wght@300&family=Roboto:ital,wght@1,300&display=swap');
+
+body{
+    background: linear-gradient(to right, #3498db, #8e44ad);
+    background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.table-container {
+    padding: 20px;
+    color: transparent !important;
+}
+
+.table {
+    
+    white-space: nowrap;
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+  }
+  
+.form-container {
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px; 
+    background-color: #fff;
+}
+
+
+.tituloSimulacion{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+    font-size: 1.6rem;
+}
+
+.boton{
+    display: flex;
+    justify-items: center !important;
+}
+  
