@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { PostSimulacion } from "../service/simulacion.service";
 
 const Parametros = () => {
 
@@ -7,14 +8,40 @@ const Parametros = () => {
   const [desdeSimulaciones, setDesdeSimulaciones] = useState('');
   const [hastaSimulaciones, setHastaSimulaciones] = useState('');
 
-  
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     console.log("Cantidad de Simulaciones:", cantidadSimulaciones);
     console.log("Desde:", desdeSimulaciones);
     console.log("Hasta:", hastaSimulaciones);
-    
+
+    try {
+      const response = await PostSimulacion({
+        lineasSimular: cantidadSimulaciones,
+        desdeDondeMostrar: desdeSimulaciones,
+        mediaLlegadaGeneral: 1,
+        mediaLlegadaEmergencia: 2.0,
+        mediaLlegadaEspecialista: 7.0,
+        mediaLlegadaTerapia: 2.0,
+        mediaAtencionGeneral: 2.0,
+        mediaAtencionEmergencia: 7.0,
+        mediaAtencionEspecialidad: 10.0,
+        mediaAtencionTerapia: 56.0,
+        mediaAtencionRecepcion: 5.0
+      });
+
+      console.log(response)
+
+      return (
+        navigate('/Vector', { state: { datosSimulacion: response.data } })
+
+      );
+    } catch (error) {
+      console.error('Error al cargar datos de simulación:', error);
+    }
   };
 
   return (
@@ -53,7 +80,7 @@ const Parametros = () => {
               />
             </div>
           </div>
-          <Link to={"/Vector"}><button type="submit" className="btn btn-info mt-3 boton">Aceptar</button></Link>
+          <button type="submit" className="btn btn-info mt-3 boton">Aceptar</button>
         </form>
       </div>
     </div>
