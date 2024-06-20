@@ -29,6 +29,7 @@ body{
   }
   
 .form-container {
+    margin-top: 100px;
     width: 500px;
     padding: 20px;
     border-radius: 10px; 
@@ -48,3 +49,8 @@ body{
     justify-items: center !important;
 }
   
+
+.col {
+    padding-top: 10px;
+
+}

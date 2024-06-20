@@ -1,21 +1,20 @@
 import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PostSimulacion } from "../service/simulacion.service";
 
 const Parametros = () => {
 
   const [cantidadSimulaciones, setCantidadSimulaciones] = useState('');
   const [desdeSimulaciones, setDesdeSimulaciones] = useState('');
-  const [hastaSimulaciones, setHastaSimulaciones] = useState('');
-  const [mediaLlegadaGeneral, setMediaLlegadaGeneral] = useState('');
-  const [mediaLlegadaEmergencia, setMediaLlegadaEmergencia] = useState('');
-  const [mediaLlegadaEspecialista, setMediaLlegadaEspecialista] = useState('');
-  const [mediaLlegadaTerapia, setMediaLlegadaTerapia] = useState('');
-  const [mediaAtencionGeneral, setMediaAtencionGeneral] = useState('');
-  const [mediaAtencionEmergencia, setMediaAtencionEmergencia] = useState('');
-  const [mediaAtencionEspecialidad, setMediaAtencionEspecialidad] = useState('');
-  const [mediaAtencionTerapia, setMediaAtencionTerapia] = useState('');
-  const [mediaAtencionRecepcion, setMediaAtencionRecepcion] = useState('');
+  const [mediaLlegadaGeneral, setMediaLlegadaGeneral] = useState('18');
+  const [mediaLlegadaEmergencia, setMediaLlegadaEmergencia] = useState('12');
+  const [mediaLlegadaEspecialista, setMediaLlegadaEspecialista] = useState('15');
+  const [mediaLlegadaTerapia, setMediaLlegadaTerapia] = useState('10');
+  const [mediaAtencionGeneral, setMediaAtencionGeneral] = useState('6');
+  const [mediaAtencionEmergencia, setMediaAtencionEmergencia] = useState('10');
+  const [mediaAtencionEspecialidad, setMediaAtencionEspecialidad] = useState('4');
+  const [mediaAtencionTerapia, setMediaAtencionTerapia] = useState('5');
+  const [mediaAtencionRecepcion, setMediaAtencionRecepcion] = useState('2');
 
   const navigate = useNavigate();
 
@@ -25,7 +24,6 @@ const Parametros = () => {
 
     console.log("Cantidad de Simulaciones:", cantidadSimulaciones);
     console.log("Desde:", desdeSimulaciones);
-    console.log("Hasta:", hastaSimulaciones);
 
     try {
       const response = await PostSimulacion({
@@ -41,11 +39,9 @@ const Parametros = () => {
         mediaAtencionTerapia: parseFloat(mediaAtencionTerapia),
         mediaAtencionRecepcion: parseFloat(mediaAtencionRecepcion)
       });
-
-      console.log(response)
-
+      console.log(response.data)
       return (
-        navigate('/Vector', { state: { datosSimulacion: response.data } })
+        navigate('/Vector', { state: { datosSimulacion: response.data, desdeSimular: desdeSimulaciones} })
 
       );
     } catch (error) {
@@ -85,19 +81,7 @@ const Parametros = () => {
             </div>
           </div>
           
-          <div className="row">
-            <div className="col">
-              <div className="form-group">
-                <label htmlFor="hastaSimulaciones" className="texto pb-2">Hasta</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="hastaSimulaciones"
-                  value={hastaSimulaciones}
-                  onChange={(e) => setHastaSimulaciones(e.target.value)}
-                />
-              </div>
-            </div>
+          
             <div className="col">
               <div className="form-group">
                 <label htmlFor="mediaLlegadaGeneral" className="texto pb-2">Media Llegada General</label>
@@ -110,7 +94,6 @@ const Parametros = () => {
                 />
               </div>
             </div>
-          </div>
 
           <div className="row">
             <div className="col">

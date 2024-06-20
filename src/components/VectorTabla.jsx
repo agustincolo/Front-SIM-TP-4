@@ -6,41 +6,31 @@ const VectorTabla = () => {
   const location = useLocation();
   const [datosFila, setDatosFila] = useState([]);
   const [pacientes, setPacientes] = useState([]);
+  const [dondeSimular, setDondeSimular] = useState(0);
+
   useEffect(() => {
     const Datos = async () => {
       if (location.state) {
         const datos = await location.state.datosSimulacion;
+        const datoSimular = await location.state.desdeSimular;
+        setDondeSimular(datoSimular)
         setDatosFila(datos);
-        console.log(datos)
-        // if (datos.estado_Espera_Paciente) {
-        //   console.log("Entre")
-        //   const pacientesArray = [];
-        //   for (let i = 0; i < datos.estado_Espera_Paciente.length; i += 3) {
-        //     const paciente = [];
-        //     for (let j = i; j < i + 3; j++) {
-        //       paciente.push(datos.estado_Espera_Paciente[j]);
-        //     }
-        //     pacientesArray.push(paciente);
-        //   }
-        //   setPacientes(pacientesArray);
-        // }
         let allPacientesArray = [];
-        datos.forEach((dato, index) => {
-          if (dato.estado_Espera_Paciente) {
-            console.log(`Processing estado_Espera_Paciente for index ${index}`);
-            const pacientesArray = [];
-            for (let i = 0; i < dato.estado_Espera_Paciente.length; i += 3) {
-              const paciente = [];
-              for (let j = i; j < i + 3; j++) {
-                paciente.push(dato.estado_Espera_Paciente[j]);
-              }
-              pacientesArray.push(paciente);
-            }
-            allPacientesArray = allPacientesArray.concat(pacientesArray);
-          }
-        });
+        // datos.forEach((dato) => {
+        //   if (dato.estado_Espera_Paciente) {
+        //     const pacientesArray = [];
+        //     for (let i = 0; i < dato.estado_Espera_Paciente.length; i += 3) {
+        //       const paciente = [];
+        //       for (let j = i; j < i + 3; j++) {
+        //         paciente.push(dato.estado_Espera_Paciente[j]);
+        //       }
+        //       pacientesArray.push(paciente);
+        //     }
+        //     allPacientesArray = allPacientesArray.concat(pacientesArray);
+        //   }
+        // });
 
-        setPacientes(allPacientesArray);
+        // setPacientes(allPacientesArray);
       
       }
       
@@ -48,10 +38,8 @@ const VectorTabla = () => {
     Datos();
   }, [location.state]);
   if (datosFila == null) {
-    console.log(datosFila)
     return <p>Cargando...</p>;
   } else{
-    console.log(pacientes)
     return (
       <div className="table-container">
         <table className="table table-bordered table-dark transparent-table">
@@ -91,7 +79,7 @@ const VectorTabla = () => {
               <th scope="col">Tiempo entre llegadas</th>
               <th scope="col">Próxima llegada</th>
               {/* General */}
-              <th scope="col">1</th>
+              <th scope="col text-center">1</th>
               <th scope="col">2</th>
               <th scope="col">3</th>
               {/* Emergencia */}
@@ -148,32 +136,33 @@ const VectorTabla = () => {
           <tbody>
             {datosFila.map((fila, index) => (
               <tr key={`fila-${index}`}>
-                <td className="text-center">{index + 1}</td>
+                <td className="text-center">{parseInt(dondeSimular, 10) + index}</td>
                 <td className="text-center">{fila.evento}</td>
-                <td className="text-center">{fila.reloj}</td>
+                <td className="text-center">{fila.reloj.substring(0, 6)}</td>
                 <td className="text-center">{fila.llegadaGeneral_TiempoEntreLlegadas}</td>
-                <td className="text-center">{fila.llegadaGeneral_ProximaLLegada}</td>
+                <td className="text-center">{fila.llegadaGeneral_ProximaLLegada == null ? null : fila.llegadaGeneral_ProximaLLegada.substring(0, 6)}</td>
                 <td className="text-center">{fila.llegadaEmergencia_TiempoEntreLlegadas}</td>
-                <td className="text-center">{fila.llegadaEmergencia_ProximaLlegada}</td>
+                <td className="text-center">{fila.llegadaEmergencia_ProximaLlegada == null ? null : fila.llegadaEmergencia_ProximaLlegada.substring(0, 6)}</td>
                 <td className="text-center">{fila.llegadaEspecialista_TiempoEntreLlegadas}</td>
-                <td className="text-center">{fila.llegadaEspecialista_ProximaLlegada}</td>
+                <td className="text-center">{fila.llegadaEspecialista_ProximaLlegada == null ? null :fila.llegadaEspecialista_ProximaLlegada.substring(0, 6)}</td>
                 <td className="text-center">{fila.llegadaTerapiaFisica_TiempoEntreLlegadas}</td>
-                <td className="text-center">{fila.llegadaTerapiaFisica_ProximaLlegada}</td>
+                <td className="text-center">{fila.llegadaTerapia_ProximaLlegada == null ? null : fila.llegadaTerapia_ProximaLlegada.substring(0, 6) }</td>
                 {/* General */}
-                <td className="text-center">{fila.fin_Atencion_General_1_TiempoFin}</td>
-                <td className="text-center">{fila.fin_Atencion_General_2_TiempoFin}</td>
-                <td className="text-center">{fila.fin_Atencion_General_3_TiempoFin}</td>
+                <td className="text-center">{fila.fin_Atencion_General_1_TiempoFin == null ? null : fila.fin_Atencion_General_1_TiempoFin.substring(0, 6)}</td>
+                <td className="text-center">{fila.fin_Atencion_General_2_TiempoFin == null ? null : fila.fin_Atencion_General_2_TiempoFin.substring(0, 6)}</td>
+                <td className="text-center">{fila.fin_Atencion_General_3_TiempoFin == null ? null : fila.fin_Atencion_General_3_TiempoFin.substring(0, 6)}</td>
                 {/* Emergencia */}
-                <td className="text-center">{fila.fin_Atencion_Emergencia_1_TiempoFin}</td>
-                <td className="text-center">{fila.fin_Atencion_Emergencia_2_TiempoFin}</td>
+                <td className="text-center">{fila.fin_Atencion_Emergencia_1_TiempoFin == null ? null : fila.fin_Atencion_Emergencia_1_TiempoFin.substring(0 , 6)}</td>
+                <td className="text-center">{fila.fin_Atencion_Emergencia_2_TiempoFin == null ? null : fila.fin_Atencion_Emergencia_2_TiempoFin.substring(0, 6)}</td>
                 {/* Especialista */}
-                <td className="text-center">{fila.fin_Atencion_Especialista_1_TiempoFin}</td>
-                <td className="text-center">{fila.fin_Atencion_Especialista_2_TiempoFin}</td>
-                <td className="text-center">{fila.fin_Atencion_Especialista_3_TiempoFin}</td>
-                <td className="text-center">{fila.fin_Atencion_Especialista_4_TiempoFin}</td>
+                <td className="text-center">{fila.fin_Atencion_Especialista_1_TiempoFin == null ? null : fila.fin_Atencion_Especialista_1_TiempoFin.substring(0 , 6)}</td>
+                <td className="text-center">{fila.fin_Atencion_Especialista_2_TiempoFin == null ? null : fila.fin_Atencion_Especialista_2_TiempoFin.substring(0, 6)}</td>
+                <td className="text-center">{fila.fin_Atencion_Especialista_3_TiempoFin == null ? null : fila.fin_Atencion_Especialista_3_TiempoFin.substring(0, 6)}</td>
+                <td className="text-center">{fila.fin_Atencion_Especialista_4_TiempoFin == null ? null : fila.fin_Atencion_Especialista_4_TiempoFin.substring(0, 6)}</td>
                 {/* Fisica */}
-                <td className="text-center">{fila.fin_Atencion_Terapia_Fisica_1_TiempoFin}</td>
-                <td className="text-center">{fila.fin_Atencion_Terapia_Fisica_2_TiempoFin}</td>
+                
+                <td className="text-center">{fila.fin_Atencion_Terapia_Fisica_1_TiempoFin == null ? null : fila.fin_Atencion_Terapia_Fisica_1_TiempoFin.substring(0 ,6)}</td>
+                <td className="text-center">{fila.fin_Atencion_Terapia_Fisica_2_TiempoFin == null ? null : fila.fin_Atencion_Terapia_Fisica_2_TiempoFin.substring(0, 6)}</td>
                 {/* Recepcion */}
                 <td className="text-center">{fila.resultado_Recepcion}</td>
                 {/* Medico general */}
@@ -201,16 +190,17 @@ const VectorTabla = () => {
                 <td className="text-center">{fila.estado_Medico_Fisico_1}</td>
                 <td className="text-center">{fila.cola_Medico_Fisico_1 == -1 ? 0 : fila.cola_Medico_Fisico_1}</td>
                 <td className="text-center">{fila.estado_Medico_Fisico_2}</td>
-                <td className="text-center">{fila.cola_Medico_Fisico_2 -1 ? 0 : fila.cola_Medico_Fisico_2}</td>
+                <td className="text-center">{fila.cola_Medico_Fisico_2 == -1 ? 0 : fila.cola_Medico_Fisico_2}</td>
                 {/* Medico recepcion */}
                 <td className="text-center">{fila.estado_Recepcion}</td>
-                <td className="text-center">{fila.cola_Recepcion -1 ? 0 : fila.cola_Recepcion}</td>
+                {console.log(fila.cola_Recepcion)}
+                <td className="text-center">{fila.cola_Recepcion == -1 ? 0 : fila.cola_Recepcion}</td>
                 {/* Pacientes */}
                 {pacientes.map((paciente, pacienteIndex) => (
                   <>
                     <td key={`estado-${index}-${pacienteIndex}`} className="text-center">{paciente[0]}</td>
-                    <td key={`especialidad-${index}-${pacienteIndex}`} className="text-center">{paciente[1]}</td>
-                    <td key={`hora-ingreso-${index}-${pacienteIndex}`} className="text-center">{paciente[2]}</td>
+                    <td key={`especialidad-${index}-${pacienteIndex}`} className="text-center">{paciente[2]}</td>
+                    <td key={`hora-ingreso-${index}-${pacienteIndex}`} className="text-center">{paciente[1]}</td>
                   </>
                 ))}
               </tr>
