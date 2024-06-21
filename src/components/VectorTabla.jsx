@@ -40,6 +40,8 @@ const VectorTabla = () => {
   if (datosFila == null) {
     return <p>Cargando...</p>;
   } else{
+    console.log(datosFila)
+  
     return (
       <div className="table-container">
         <table className="table table-bordered table-dark transparent-table">
@@ -56,6 +58,7 @@ const VectorTabla = () => {
               <th scope="col" colSpan="2" className="text-center">Fin Atención Emergencia (i)</th>
               <th scope="col" colSpan="4" className="text-center">Fin Atención Especialista (i)</th>
               <th scope="col" colSpan="2" className="text-center">Fin Atención Física (i)</th>
+              <th scope="col" colSpan="1" className="text-center">Fin Atencion Recepcion</th>
               <th scope="col" colSpan="1" className="text-center"></th>
               <th scope="col" colSpan="6" className="text-center">Médico General (i)</th>
               <th scope="col" colSpan="4" className="text-center">Médico Emergencia (i)</th>
@@ -94,6 +97,7 @@ const VectorTabla = () => {
               <th scope="col">1</th>
               <th scope="col">2</th>
               {/* Recepción */}
+              <th scope="col"></th>
               <th scope="col" className="text-center">Resultado Recepción</th>
               {/* Médico General*/}
               <th scope="col">Estado 1</th>
@@ -124,6 +128,7 @@ const VectorTabla = () => {
               {/*Recepcion */}
               <th scope="col">Estado</th>
               <th scope="col">Cola</th>
+
               {pacientes.map((_, index) => (
                 <>
                   <th key={`estado-${index}`} scope="col">Estado</th>
@@ -164,6 +169,7 @@ const VectorTabla = () => {
                 <td className="text-center">{fila.fin_Atencion_Terapia_Fisica_1_TiempoFin == null ? null : fila.fin_Atencion_Terapia_Fisica_1_TiempoFin.substring(0 ,6)}</td>
                 <td className="text-center">{fila.fin_Atencion_Terapia_Fisica_2_TiempoFin == null ? null : fila.fin_Atencion_Terapia_Fisica_2_TiempoFin.substring(0, 6)}</td>
                 {/* Recepcion */}
+                <td className='text-center'>{fila.fin_Atencion_Recepcion_1_TiempoFin == null ? null : fila.fin_Atencion_Recepcion_1_TiempoFin.substring(0, 6)}</td>
                 <td className="text-center">{fila.resultado_Recepcion}</td>
                 {/* Medico general */}
                 <td className="text-center">{fila.estado_Medico_General_1}</td>
