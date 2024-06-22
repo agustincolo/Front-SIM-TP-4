@@ -15,33 +15,66 @@ const VectorTabla = () => {
         const datoSimular = await location.state.desdeSimular;
         setDondeSimular(datoSimular)
         setDatosFila(datos);
-        let allPacientesArray = [];
-        // datos.forEach((dato) => {
-        //   if (dato.estado_Espera_Paciente) {
-        //     const pacientesArray = [];
-        //     for (let i = 0; i < dato.estado_Espera_Paciente.length; i += 3) {
-        //       const paciente = [];
-        //       for (let j = i; j < i + 3; j++) {
-        //         paciente.push(dato.estado_Espera_Paciente[j]);
-        //       }
-        //       pacientesArray.push(paciente);
-        //     }
-        //     allPacientesArray = allPacientesArray.concat(pacientesArray);
-        //   }
-        // });
+      //   let formattedData = datos.map(dato => {
+      //     if (dato.estado_Espera_Paciente) {
+      //       let pacientes = [];
+      //       for (let i = 0; i < dato.estado_Espera_Paciente.length; i += 3) {
+      //         pacientes.push(`Paciente ${Math.floor(i / 3) + 1}: ${dato.estado_Espera_Paciente[i]}, ${dato.estado_Espera_Paciente[i + 1]}, ${dato.estado_Espera_Paciente[i + 2]}`);
+      //       }
+      //       return pacientes.join(' | ');
+      //     }
+      //     return '';
+      //   });
+  
+      //   setPacientes(formattedData);
+      // }
+      // let formattedData = datos.map(dato => {
+      //   if (dato.estado_Espera_Paciente) {
+      //     let pacientes = [];
+      //     for (let i = 0; i < dato.estado_Espera_Paciente.length; i += 3) {
+      //       pacientes.push({
+      //         estado: dato.estado_Espera_Paciente[i],
+      //         especialidad: dato.estado_Espera_Paciente[i + 1],
+      //         horaIngreso: dato.estado_Espera_Paciente[i + 2]
+      //       });
+      //     }
 
-        // setPacientes(allPacientesArray);
-      
-      }
-      
-    };
+      //     console.log("devolvio esto" + pacientes)
+      //     return pacientes;
+      //   }
+      //   return [];
+      // });
+
+      // setPacientes(formattedData);
+    }
+  }
     Datos();
   }, [location.state]);
+
+  // const obtenerDatosPaciente = (indice) => {
+  //   if (datosFila.length > 0 && indice >= 0 && indice < datosFila.length) {
+  //     const pacienteData = datosFila[indice].estado_Espera_Paciente;
+  //     if (pacienteData && pacienteData.length > 0) {
+  //       let pacientes = [];
+  //       for (let i = 0; i < pacienteData.length; i += 3) {
+  //         pacientes.push({
+  //           estado: pacienteData[i],
+  //           especialidad: pacienteData[i + 1],
+  //           horaIngreso: pacienteData[i + 2]
+  //         });
+  //       }
+
+  //       return pacientes;
+  //     }
+  //   }
+  //   return [];
+  
+
   if (datosFila == null) {
     return <p>Cargando...</p>;
+    
   } else{
-    console.log(datosFila)
-  
+
     return (
       <div className="table-container">
         <table className="table table-bordered table-dark transparent-table">
@@ -65,9 +98,23 @@ const VectorTabla = () => {
               <th scope="col" colSpan="8" className="text-center">Médico Especialista (i)</th>
               <th scope="col" colSpan="4" className="text-center">Médico Fisico (i)</th>
               <th scope="col" colSpan="2" className="text-center">Recepcion</th>
-              {pacientes.map((_, index) => (
+              {/* Estadistica */}
+              <th scope="col" colSpan="3" className="text-center">Tiempo Espera Promedio</th>
+              
+              <th scope="col" colSpan="3" className="text-center">Tiempo Espera Prom Emergencia</th>
+              
+              
+
+
+
+
+              {/* {pacientes.map((_, index) => (
                 <th key={index} scope="col" colSpan="3" className="text-center">Paciente {index + 1}</th>
-              ))}
+              ))} */}
+              {/* <th>Paciente</th> */}
+
+
+              
             </tr>
             <tr>
               <th scope="col">Iteración</th>
@@ -128,48 +175,67 @@ const VectorTabla = () => {
               {/*Recepcion */}
               <th scope="col">Estado</th>
               <th scope="col">Cola</th>
+              {/* Estadistica */}
+              <th scope="col">AC tiempo Espera</th>
+              <th scope="col">Cantidad Pacientes</th>
+              <th scope="col">Resultado</th>
+                
+              <th scope="col">AC tiempo Esp. Emer</th>
+              <th scope="col">Cantidad Pacientes</th>
+              <th scope="col">Resultado</th>
 
-              {pacientes.map((_, index) => (
+              <th scope="col" colSpan="1" className="text-center">Porcentaje Ocupacion Recep.</th>
+              <th scope="col" colSpan="1" className="text-center">Porcentaje Ocupacion General</th>
+              <th scope="col" colSpan="1" className="text-center">Porcentaje Ocupacion Emergencia</th>
+              <th scope="col" colSpan="1" className="text-center">Porcentaje Ocupacion Especialidad</th>
+              <th scope="col" colSpan="1" className="text-center">Porcentaje Ocupacion Terapia</th>
+              <th scope="col" colSpan="1" className="text-center">Cantidad Pacientes Atendidos</th>
+
+              {/* {pacientes.map((_, index) => (
                 <>
-                  <th key={`estado-${index}`} scope="col">Estado</th>
-                  <th key={`especialidad-${index}`} scope="col">Especialidad</th>
-                  <th key={`hora-ingreso-${index}`} scope="col">Hora Ingreso</th>
+                  <th key={`estado-header-${index}`} scope="col">Estado</th>
+                  <th key={`especialidad-header-${index}`} scope="col">Especialidad</th>
+                  <th key={`hora-ingreso-header-${index}`} scope="col">Hora Ingreso</th>
                 </>
               ))}
-            </tr>
+               <th  scope="col">Estado</th>
+                  <th  scope="col">Especialidad</th>
+                  <th scope="col">Hora Ingreso</th> */}
+             </tr>
           </thead>
           <tbody>
             {datosFila.map((fila, index) => (
               <tr key={`fila-${index}`}>
-                <td className="text-center">{parseInt(dondeSimular, 10) + index}</td>
+                <td className="text-center">{fila.nroIteracion}</td>
                 <td className="text-center">{fila.evento}</td>
-                <td className="text-center">{fila.reloj.substring(0, 6)}</td>
+                <td className="text-center">{parseFloat(fila.reloj).toFixed(2)}</td>
                 <td className="text-center">{fila.llegadaGeneral_TiempoEntreLlegadas}</td>
-                <td className="text-center">{fila.llegadaGeneral_ProximaLLegada == null ? null : fila.llegadaGeneral_ProximaLLegada.substring(0, 6)}</td>
+                <td className="text-center">{fila.llegadaGeneral_ProximaLLegada == null ? null : parseFloat(fila.llegadaGeneral_ProximaLLegada).toFixed(2)}</td>
                 <td className="text-center">{fila.llegadaEmergencia_TiempoEntreLlegadas}</td>
-                <td className="text-center">{fila.llegadaEmergencia_ProximaLlegada == null ? null : fila.llegadaEmergencia_ProximaLlegada.substring(0, 6)}</td>
+
+                <td className="text-center">{fila.llegadaEmergencia_ProximaLlegada == null ? null : parseFloat(fila.llegadaEmergencia_ProximaLlegada).toFixed(2)}</td>
                 <td className="text-center">{fila.llegadaEspecialista_TiempoEntreLlegadas}</td>
-                <td className="text-center">{fila.llegadaEspecialista_ProximaLlegada == null ? null :fila.llegadaEspecialista_ProximaLlegada.substring(0, 6)}</td>
+                <td className="text-center">{fila.llegadaEspecialista_ProximaLlegada == null ? null :parseFloat(fila.llegadaEspecialista_ProximaLlegada).toFixed(2)}</td>
                 <td className="text-center">{fila.llegadaTerapiaFisica_TiempoEntreLlegadas}</td>
-                <td className="text-center">{fila.llegadaTerapia_ProximaLlegada == null ? null : fila.llegadaTerapia_ProximaLlegada.substring(0, 6) }</td>
+                <td className="text-center">{fila.llegadaTerapia_ProximaLlegada == null ? null : parseFloat(fila.llegadaTerapia_ProximaLlegada).toFixed(2) }</td>
                 {/* General */}
-                <td className="text-center">{fila.fin_Atencion_General_1_TiempoFin == null ? null : fila.fin_Atencion_General_1_TiempoFin.substring(0, 6)}</td>
-                <td className="text-center">{fila.fin_Atencion_General_2_TiempoFin == null ? null : fila.fin_Atencion_General_2_TiempoFin.substring(0, 6)}</td>
-                <td className="text-center">{fila.fin_Atencion_General_3_TiempoFin == null ? null : fila.fin_Atencion_General_3_TiempoFin.substring(0, 6)}</td>
+                <td className="text-center">{fila.fin_Atencion_General_1_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_General_1_TiempoFin).toFixed(2)}</td>
+                <td className="text-center">{fila.fin_Atencion_General_2_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_General_2_TiempoFin).toFixed(2)}</td>
+                <td className="text-center">{fila.fin_Atencion_General_3_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_General_3_TiempoFin).toFixed(2)}</td>
                 {/* Emergencia */}
-                <td className="text-center">{fila.fin_Atencion_Emergencia_1_TiempoFin == null ? null : fila.fin_Atencion_Emergencia_1_TiempoFin.substring(0 , 6)}</td>
-                <td className="text-center">{fila.fin_Atencion_Emergencia_2_TiempoFin == null ? null : fila.fin_Atencion_Emergencia_2_TiempoFin.substring(0, 6)}</td>
+                <td className="text-center">{fila.fin_Atencion_Emergencia_1_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Emergencia_1_TiempoFin).toFixed(2)}</td>
+                <td className="text-center">{fila.fin_Atencion_Emergencia_2_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Emergencia_2_TiempoFin).toFixed(2)}</td>
                 {/* Especialista */}
-                <td className="text-center">{fila.fin_Atencion_Especialista_1_TiempoFin == null ? null : fila.fin_Atencion_Especialista_1_TiempoFin.substring(0 , 6)}</td>
-                <td className="text-center">{fila.fin_Atencion_Especialista_2_TiempoFin == null ? null : fila.fin_Atencion_Especialista_2_TiempoFin.substring(0, 6)}</td>
-                <td className="text-center">{fila.fin_Atencion_Especialista_3_TiempoFin == null ? null : fila.fin_Atencion_Especialista_3_TiempoFin.substring(0, 6)}</td>
-                <td className="text-center">{fila.fin_Atencion_Especialista_4_TiempoFin == null ? null : fila.fin_Atencion_Especialista_4_TiempoFin.substring(0, 6)}</td>
+                <td className="text-center">{fila.fin_Atencion_Especialista_1_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Especialista_1_TiempoFin).toFixed(2)}</td>
+                <td className="text-center">{fila.fin_Atencion_Especialista_2_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Especialista_2_TiempoFin).toFixed(2)}</td>
+                <td className="text-center">{fila.fin_Atencion_Especialista_3_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Especialista_3_TiempoFin).toFixed(2)}</td>
+                <td className="text-center">{fila.fin_Atencion_Especialista_4_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Especialista_4_TiempoFin).toFixed(2)}</td>
                 {/* Fisica */}
                 
-                <td className="text-center">{fila.fin_Atencion_Terapia_Fisica_1_TiempoFin == null ? null : fila.fin_Atencion_Terapia_Fisica_1_TiempoFin.substring(0 ,6)}</td>
-                <td className="text-center">{fila.fin_Atencion_Terapia_Fisica_2_TiempoFin == null ? null : fila.fin_Atencion_Terapia_Fisica_2_TiempoFin.substring(0, 6)}</td>
+                <td className="text-center">{fila.fin_Atencion_Terapia_Fisica_1_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Terapia_Fisica_1_TiempoFin).toFixed(2)}</td>
+                <td className="text-center">{fila.fin_Atencion_Terapia_Fisica_2_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Terapia_Fisica_2_TiempoFin).toFixed(2)}</td>
                 {/* Recepcion */}
-                <td className='text-center'>{fila.fin_Atencion_Recepcion_1_TiempoFin == null ? null : fila.fin_Atencion_Recepcion_1_TiempoFin.substring(0, 6)}</td>
+                <td className='text-center'>{fila.fin_Atencion_Recepcion_1_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Recepcion_1_TiempoFin).toFixed(2)}</td>
                 <td className="text-center">{fila.resultado_Recepcion}</td>
                 {/* Medico general */}
                 <td className="text-center">{fila.estado_Medico_General_1}</td>
@@ -199,16 +265,38 @@ const VectorTabla = () => {
                 <td className="text-center">{fila.cola_Medico_Fisico_2 == -1 ? 0 : fila.cola_Medico_Fisico_2}</td>
                 {/* Medico recepcion */}
                 <td className="text-center">{fila.estado_Recepcion}</td>
-                {console.log(fila.cola_Recepcion)}
                 <td className="text-center">{fila.cola_Recepcion == -1 ? 0 : fila.cola_Recepcion}</td>
+                {/* Estadistica */}
+                <td className="text-center">{fila.acumuladorTiempoEspera == null ? null : parseFloat(fila.acumuladorTiempoEspera).toFixed(2)}</td>
+                <td className="text-center">{fila.cantidadPacientesAtendidos}</td>
+                <td className="text-center">{fila.tiempoEsperaPromedio == null ? null : parseFloat(fila.tiempoEsperaPromedio).toFixed(2)}</td>
+
+                <td className="text-center">{fila.acumuladorTiempoEsperaPacientesEmergencia == null ? null : parseFloat(fila.acumuladorTiempoEsperaPacientesEmergencia).toFixed(2)}</td>
+                <td className="text-center">{fila.cantidadPacientesAtendidos}</td>
+                <td className="text-center">{fila.tiempoEsperaPacientesEmergenciaPromedio == null ? null : parseFloat(fila.tiempoEsperaPacientesEmergenciaPromedio).toFixed(2)}</td>
+
+                <td className="text-center">{fila.tiempoOcupacionRecepcion == null ? null : parseFloat(fila.tiempoOcupacionRecepcion).toFixed(2)}</td>
+
+                <td className="text-center">{fila.tiempoOcupacionGeneral == null ? null : parseFloat(fila.tiempoOcupacionGeneral).toFixed(2)}</td>
+
+                <td className="text-center">{fila.tiempoOcupacionEmergencia == null ? null : parseFloat(fila.tiempoOcupacionEmergencia).toFixed(2)}</td>
+
+                <td className="text-center">{fila.tiempoOcupacionEspecialidad == null ? null : parseFloat(fila.tiempoOcupacionEspecialidad).toFixed(2)}</td>
+
+                <td className="text-center">{fila.tiempoOcupacionTerapia == null ? null : parseFloat(fila.tiempoOcupacionTerapia).toFixed(2)}</td>
+
+                <td className="text-center">{fila.cantidadPacientesAtendidos}</td>
+
+
+
                 {/* Pacientes */}
-                {pacientes.map((paciente, pacienteIndex) => (
-                  <>
-                    <td key={`estado-${index}-${pacienteIndex}`} className="text-center">{paciente[0]}</td>
-                    <td key={`especialidad-${index}-${pacienteIndex}`} className="text-center">{paciente[2]}</td>
-                    <td key={`hora-ingreso-${index}-${pacienteIndex}`} className="text-center">{paciente[1]}</td>
-                  </>
-                ))}
+                {/* {obtenerDatosPaciente(index).map((paciente, idx) => (
+                    <div key={`paciente-${index}-${idx}`}>
+                      <td>Estado: {paciente.estado}</td>
+                      <td>Especialidad: {paciente.especialidad}</td>
+                      <td>Hora Ingreso: {paciente.horaIngreso}</td>
+                    </div>
+                  ))} */}
               </tr>
             ))}
           </tbody>
