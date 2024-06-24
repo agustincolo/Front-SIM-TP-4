@@ -15,65 +15,32 @@ const VectorTabla = () => {
         const datoSimular = await location.state.desdeSimular;
         setDondeSimular(datoSimular)
         setDatosFila(datos);
-      //   let formattedData = datos.map(dato => {
-      //     if (dato.estado_Espera_Paciente) {
-      //       let pacientes = [];
-      //       for (let i = 0; i < dato.estado_Espera_Paciente.length; i += 3) {
-      //         pacientes.push(`Paciente ${Math.floor(i / 3) + 1}: ${dato.estado_Espera_Paciente[i]}, ${dato.estado_Espera_Paciente[i + 1]}, ${dato.estado_Espera_Paciente[i + 2]}`);
-      //       }
-      //       return pacientes.join(' | ');
-      //     }
-      //     return '';
-      //   });
-  
-      //   setPacientes(formattedData);
-      // }
-      // let formattedData = datos.map(dato => {
-      //   if (dato.estado_Espera_Paciente) {
-      //     let pacientes = [];
-      //     for (let i = 0; i < dato.estado_Espera_Paciente.length; i += 3) {
-      //       pacientes.push({
-      //         estado: dato.estado_Espera_Paciente[i],
-      //         especialidad: dato.estado_Espera_Paciente[i + 1],
-      //         horaIngreso: dato.estado_Espera_Paciente[i + 2]
-      //       });
-      //     }
 
-      //     console.log("devolvio esto" + pacientes)
-      //     return pacientes;
-      //   }
-      //   return [];
-      // });
-
-      // setPacientes(formattedData);
+        if (datos && datos.length > 0) {
+          const pacientesData = datos.map(dato => dato.estado_Espera_Paciente);
+          setPacientes(pacientesData);
+        }
+      
     }
   }
     Datos();
   }, [location.state]);
 
-  // const obtenerDatosPaciente = (indice) => {
-  //   if (datosFila.length > 0 && indice >= 0 && indice < datosFila.length) {
-  //     const pacienteData = datosFila[indice].estado_Espera_Paciente;
-  //     if (pacienteData && pacienteData.length > 0) {
-  //       let pacientes = [];
-  //       for (let i = 0; i < pacienteData.length; i += 3) {
-  //         pacientes.push({
-  //           estado: pacienteData[i],
-  //           especialidad: pacienteData[i + 1],
-  //           horaIngreso: pacienteData[i + 2]
-  //         });
-  //       }
-
-  //       return pacientes;
-  //     }
-  //   }
-  //   return [];
-  
+  const ordenar = () => {
+    
+    for (let index = 0; index < pacientes.length; index++) {
+      pacientes[index].sort((a, b) => a.id - b.id)
+    }
+    
+  }
+  ordenar();
 
   if (datosFila == null) {
     return <p>Cargando...</p>;
     
-  } else{
+    
+  } else{ 
+    
 
     return (
       <div className="table-container">
@@ -190,21 +157,34 @@ const VectorTabla = () => {
               <th scope="col" colSpan="1" className="text-center">Porcentaje Ocupacion Especialidad</th>
               <th scope="col" colSpan="1" className="text-center">Porcentaje Ocupacion Terapia</th>
               <th scope="col" colSpan="1" className="text-center">Cantidad Pacientes Atendidos</th>
+              {/* {datosFila.map((fila, index) => {
+      // Usamos un conjunto para almacenar las IDs únicas de pacientes
+      let idsRendered = new Set();
 
-              {/* {pacientes.map((_, index) => (
-                <>
-                  <th key={`estado-header-${index}`} scope="col">Estado</th>
-                  <th key={`especialidad-header-${index}`} scope="col">Especialidad</th>
-                  <th key={`hora-ingreso-header-${index}`} scope="col">Hora Ingreso</th>
-                </>
-              ))}
-               <th  scope="col">Estado</th>
-                  <th  scope="col">Especialidad</th>
-                  <th scope="col">Hora Ingreso</th> */}
+      return (
+        <React.Fragment key={`fila-${index}`}>
+          {pacientes[index].map((paciente) => {
+            if (!idsRendered.has(paciente.id)) {
+              idsRendered.add(paciente.id);
+              return (
+                <React.Fragment key={paciente.id}>
+                  <th scope="col" colSpan="1">Estado</th>
+                  <th scope="col" colSpan="1">Especialidad</th>
+                  <th scope="col" colSpan="1">Hora Ingreso</th>
+                </React.Fragment>
+              );
+            } else {
+              return null;
+            }
+          })}
+        </React.Fragment>
+      );
+    })} */}
              </tr>
           </thead>
           <tbody>
             {datosFila.map((fila, index) => (
+
               <tr key={`fila-${index}`}>
                 <td className="text-center">{fila.nroIteracion}</td>
                 <td className="text-center">{fila.evento}</td>
@@ -286,17 +266,13 @@ const VectorTabla = () => {
                 <td className="text-center">{fila.tiempoOcupacionTerapia == null ? null : parseFloat(fila.tiempoOcupacionTerapia).toFixed(2)}</td>
 
                 <td className="text-center">{fila.cantidadPacientesAtendidos}</td>
-
-
-
-                {/* Pacientes */}
-                {/* {obtenerDatosPaciente(index).map((paciente, idx) => (
-                    <div key={`paciente-${index}-${idx}`}>
-                      <td>Estado: {paciente.estado}</td>
-                      <td>Especialidad: {paciente.especialidad}</td>
-                      <td>Hora Ingreso: {paciente.horaIngreso}</td>
-                    </div>
-                  ))} */}
+                {pacientes[index].map((paciente) => (
+                  <React.Fragment key={paciente.id}>
+                    <td className="text-center">Paciente: {paciente.id} {paciente.estado}</td>
+                    <td className="text-center">{paciente.tipoAtencion}</td>
+                    <td className="text-center">{paciente.tiempoEspera == null ? null : parseFloat(paciente.tiempoEspera).toFixed(2)}</td>
+                  </React.Fragment>
+                ))}
               </tr>
             ))}
           </tbody>
