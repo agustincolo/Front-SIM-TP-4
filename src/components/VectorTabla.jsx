@@ -28,7 +28,8 @@ const VectorTabla = () => {
     for (let index = 0; index < pacientes.length; index++) {
       pacientes[index].sort((a, b) => a.id - b.id)
     }
-    
+       //proxima interrupcion
+        // tiempo fin interrupcion
   }
   ordenar();
 
@@ -56,10 +57,12 @@ const VectorTabla = () => {
               <th scope="col" colSpan="4" className="text-center">Fin Atención Especialista (i)</th>
               <th scope="col" colSpan="2" className="text-center">Fin Atención Física (i)</th>
               <th scope="col" colSpan="1" className="text-center">Fin Atencion Recepcion</th>
+              <th scope="col" colSpan="1" className="text-center">Fin Tiempo Interrupcion</th>
+
               <th scope="col" colSpan="1" className="text-center"></th>
               <th scope="col" colSpan="6" className="text-center">Médico General (i)</th>
               <th scope="col" colSpan="4" className="text-center">Médico Emergencia (i)</th>
-              <th scope="col" colSpan="8" className="text-center">Médico Especialista (i)</th>
+              <th scope="col" colSpan="9" className="text-center">Médico Especialista (i)</th>
               <th scope="col" colSpan="4" className="text-center">Médico Fisico (i)</th>
               <th scope="col" colSpan="2" className="text-center">Recepcion</th>
               {/* Estadistica */}
@@ -103,7 +106,8 @@ const VectorTabla = () => {
               <th scope="col">2</th>
               {/* Recepción */}
               <th scope="col"></th>
-              <th scope="col" className="text-center">Resultado Recepción</th>
+              <th></th>
+              <th scope="col" className="text-center">Resultado Recepción</th>  
               {/* Médico General*/}
               <th scope="col">Estado 1</th>
               <th scope="col">Cola 1</th>
@@ -125,6 +129,7 @@ const VectorTabla = () => {
               <th scope="col">Cola 3</th>
               <th scope="col">Estado 4</th>
               <th scope="col">Cola 4</th>
+              <th scope="col">Proxima Interrupcion</th>
               {/*Medico Fisico */}
               <th scope="col">Estado 1</th>
               <th scope="col">Cola 1</th>
@@ -183,8 +188,10 @@ const VectorTabla = () => {
                 
                 <td className="text-center">{fila.fin_Atencion_Terapia_Fisica_1_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Terapia_Fisica_1_TiempoFin).toFixed(2)}</td>
                 <td className="text-center">{fila.fin_Atencion_Terapia_Fisica_2_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Terapia_Fisica_2_TiempoFin).toFixed(2)}</td>
+                
                 {/* Recepcion */}
                 <td className='text-center'>{fila.fin_Atencion_Recepcion_1_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Recepcion_1_TiempoFin).toFixed(2)}</td>
+                <td className='text-center'>2</td>
                 <td className="text-center">{fila.resultado_Recepcion}</td>
                 {/* Medico general */}
                 <td className="text-center">{fila.estado_Medico_General_1}</td>
@@ -207,6 +214,7 @@ const VectorTabla = () => {
                 <td className="text-center">{fila.cola_Medico_Especialista_3 == -1 ? 0 : fila.cola_Medico_Especialista_3}</td>
                 <td className="text-center">{fila.estado_Medico_Especialista_4}</td>
                 <td className="text-center">{fila.cola_Medico_Especialista_4 == -1 ? 0 : fila.cola_Medico_Especialista_4}</td>
+                <td className='text-center'></td>
                 {/* Medico fisico */}
                 <td className="text-center">{fila.estado_Medico_Fisico_1}</td>
                 <td className="text-center">{fila.cola_Medico_Fisico_1 == -1 ? 0 : fila.cola_Medico_Fisico_1}</td>
