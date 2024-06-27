@@ -77,6 +77,11 @@ const VectorTabla = () => {
               <th scope="col" colSpan="1" className="text-center"></th>
               <th scope="col" colSpan="1" className="text-center"></th>
               <th scope="col" colSpan="1" className="text-center"></th>
+              <th scope="col" colSpan="1" className="text-center"></th>
+              <th scope="col" colSpan="1" className="text-center"></th>
+              <th scope="col" colSpan="1" className="text-center"></th>
+              <th scope="col" colSpan="1" className="text-center"></th>
+              <th scope="col" colSpan="1" className="text-center"></th>
 
 
               <th scope="col" className="text-center" colSpan="20">Pacientes</th>             
@@ -147,11 +152,16 @@ const VectorTabla = () => {
               <th scope="col">Cantidad Pacientes</th>
               <th scope="col">Resultado</th>
 
-              <th scope="col" colSpan="1" className="text-center">Porcentaje Ocupacion Recep.</th>
-              <th scope="col" colSpan="1" className="text-center">Porcentaje Ocupacion General</th>
-              <th scope="col" colSpan="1" className="text-center">Porcentaje Ocupacion Emergencia</th>
-              <th scope="col" colSpan="1" className="text-center">Porcentaje Ocupacion Especialidad</th>
-              <th scope="col" colSpan="1" className="text-center">Porcentaje Ocupacion Terapia</th>
+              <th scope="col" colSpan="1" className="text-center">Tiempo Ocupacion Recep.</th>
+              <th scope="col" colSpan="1" className="text-center">Promedio Ocupacion Recep.</th>
+              <th scope="col" colSpan="1" className="text-center">Tiempo Ocupacion General</th>
+              <th scope="col" colSpan="1" className="text-center">Promedio Ocupacion General</th>
+              <th scope="col" colSpan="1" className="text-center">Tiempo Ocupacion Emergencia</th>
+              <th scope="col" colSpan="1" className="text-center">Promedio Ocupacion Emergencia</th>
+              <th scope="col" colSpan="1" className="text-center">Tiempo Ocupacion Especialidad</th>
+              <th scope="col" colSpan="1" className="text-center">Promedio Ocupacion Especialidad</th>
+              <th scope="col" colSpan="1" className="text-center">Tiempo Ocupacion Terapia</th>
+              <th scope="col" colSpan="1" className="text-center">Promedio Ocupacion Terapia</th>
               <th scope="col" colSpan="1" className="text-center">Cantidad Pacientes Atendidos</th>
               <th scope="col" colSpan="1" className="text-center">Promedio Edades Pacientes</th>
               <th scope="col" colSpan="1" className="text-center">Prob. Llegada Con Servicio Lleno</th>
@@ -164,7 +174,7 @@ const VectorTabla = () => {
           <tbody>
             {datosFila.map((fila, index) => (
 
-              <tr key={`fila-${index}`}>
+              <tr key={`fila-${index}`} className={index === datosFila.length - 1 ? 'table-warning' : ''}>
                 <td className="text-center">{fila.nroIteracion}</td>
                 <td className="text-center">{fila.evento}</td>
                 <td className="text-center">{parseFloat(fila.reloj).toFixed(2)}</td>
@@ -229,25 +239,34 @@ const VectorTabla = () => {
                 <td className="text-center">{fila.tiempoEsperaPromedio == null ? null : parseFloat(fila.tiempoEsperaPromedio).toFixed(2)}</td>
 
                 <td className="text-center">{fila.acumuladorTiempoEsperaPacientesEmergencia == null ? null : parseFloat(fila.acumuladorTiempoEsperaPacientesEmergencia).toFixed(2)}</td>
-                <td className="text-center">{fila.cantidadPacientesAtendidos}</td>
+                <td className="text-center">{fila.cantidadAcumuladaPacientesEmergencia}</td>
                 <td className="text-center">
                 {fila.tiempoEsperaPacientesEmergenciaPromedio == null || isNaN(parseFloat(fila.tiempoEsperaPacientesEmergenciaPromedio))? parseFloat(0).toFixed(2): parseFloat(fila.tiempoEsperaPacientesEmergenciaPromedio).toFixed(2)}</td>
 
 
                 <td className="text-center">{fila.tiempoOcupacionRecepcion == null ? null : parseFloat(fila.tiempoOcupacionRecepcion).toFixed(2)}</td>
+                <td className="text-center fw-bold">{fila.porcentajeOcupacionRecepcion == null ? null : parseFloat(fila.porcentajeOcupacionRecepcion).toFixed(2)}</td>
+
 
                 <td className="text-center">{fila.tiempoOcupacionGeneral == null ? null : parseFloat(fila.tiempoOcupacionGeneral).toFixed(2)}</td>
+                <td className="text-center fw-bold">{fila.porcentajeOcupacionGeneral == null ? null : parseFloat(fila.porcentajeOcupacionGeneral).toFixed(2)}</td>
+
 
                 <td className="text-center">{fila.tiempoOcupacionEmergencia == null ? null : parseFloat(fila.tiempoOcupacionEmergencia).toFixed(2)}</td>
+                <td className="text-center fw-bold">{fila.porcentajeOcupacionEmergencia == null ? null : parseFloat(fila.porcentajeOcupacionEmergencia).toFixed(2)}</td>
 
                 <td className="text-center">{fila.tiempoOcupacionEspecialidad == null ? null : parseFloat(fila.tiempoOcupacionEspecialidad).toFixed(2)}</td>
-
+                <td className="text-center fw-bold">{fila.porcentajeOcupacionEspecialidad == null ? null : parseFloat(fila.porcentajeOcupacionEspecialidad).toFixed(2)}</td>
+                
+                
                 <td className="text-center">{fila.tiempoOcupacionTerapia == null ? null : parseFloat(fila.tiempoOcupacionTerapia).toFixed(2)}</td>
+                <td className="text-center fw-bold">{fila.porcentajeOcupacionTerapia == null ? null : parseFloat(fila.porcentajeOcupacionTerapia).toFixed(2)}</td>
 
-                <td className="text-center">{fila.cantidadPacientesAtendidos}</td>
 
-                <td className='text-center'>{fila.promedioEdadesPacientesAtendidos}</td>
-                <td className='text-center'>{parseFloat(fila.probabilidadLlegadaConServicioLleno).toFixed(2)}</td>
+                <td className="text-center fw-bold">{fila.cantidadPacientesAtendidos}</td>
+
+                <td className='text-center fw-bold'>{fila.promedioEdadesPacientesAtendidos}</td>
+                <td className='text-center fw-bold'>{parseFloat(fila.probabilidadLlegadaConServicioLleno).toFixed(2)}</td>
 
                 {pacientes[index].map((paciente) => (
                   <React.Fragment key={paciente.id}>

@@ -11,12 +11,12 @@ body{
 }
 
 .table-container {
+    position: relative;
+    height: 400px;
     padding: 20px;
-    color: transparent !important;
 }
 
 .table {
-    
     white-space: nowrap;
 }
 
@@ -36,6 +36,30 @@ body{
     background-color: #fff;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+thead tr:nth-child(1) th,
+thead tr:nth-child(2) th {
+  position: sticky;
+  top: 0;
+  background-color: #077edf;
+  z-index: 10;
+}
+
+thead tr:nth-child(2) th {
+  top: 40px; 
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+  }
+
 
 .tituloSimulacion{
     display: flex;
@@ -53,4 +77,8 @@ body{
 .col {
     padding-top: 10px;
 
+}
+
+.last-row {
+    background-color: red !important
 }
