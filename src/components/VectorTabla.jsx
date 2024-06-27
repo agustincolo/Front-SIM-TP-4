@@ -191,7 +191,7 @@ const VectorTabla = () => {
                 
                 {/* Recepcion */}
                 <td className='text-center'>{fila.fin_Atencion_Recepcion_1_TiempoFin == null ? null : parseFloat(fila.fin_Atencion_Recepcion_1_TiempoFin).toFixed(2)}</td>
-                <td className='text-center'>2</td>
+                <td className='text-center'>{fila.tiempoFinalizacionInterrupcion == null ? null : parseFloat(fila.tiempoFinalizacionInterrupcion).toFixed(2)}</td>
                 <td className="text-center">{fila.resultado_Recepcion}</td>
                 {/* Medico general */}
                 <td className="text-center">{fila.estado_Medico_General_1}</td>
@@ -214,7 +214,7 @@ const VectorTabla = () => {
                 <td className="text-center">{fila.cola_Medico_Especialista_3 == -1 ? 0 : fila.cola_Medico_Especialista_3}</td>
                 <td className="text-center">{fila.estado_Medico_Especialista_4}</td>
                 <td className="text-center">{fila.cola_Medico_Especialista_4 == -1 ? 0 : fila.cola_Medico_Especialista_4}</td>
-                <td className='text-center'></td>
+                <td className='text-center'>{fila.tiempoProximaInterrupcion == null ? null : parseFloat(fila.tiempoProximaInterrupcion).toFixed(2)}</td>
                 {/* Medico fisico */}
                 <td className="text-center">{fila.estado_Medico_Fisico_1}</td>
                 <td className="text-center">{fila.cola_Medico_Fisico_1 == -1 ? 0 : fila.cola_Medico_Fisico_1}</td>
