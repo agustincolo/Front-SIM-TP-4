@@ -40,7 +40,8 @@ const Parametros = () => {
         mediaAtencionEmergencia: parseFloat(mediaAtencionEmergencia),
         mediaAtencionEspecialidad: parseFloat(mediaAtencionEspecialidad),
         mediaAtencionTerapia: parseFloat(mediaAtencionTerapia),
-        mediaAtencionRecepcion: parseFloat(mediaAtencionRecepcion)
+        mediaAtencionRecepcion: parseFloat(mediaAtencionRecepcion),
+        cantMedicosGenerales: parseFloat(cantidadServidores)
       });
       console.log(response.data)
       return (
