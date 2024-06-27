@@ -28,8 +28,7 @@ const VectorTabla = () => {
     for (let index = 0; index < pacientes.length; index++) {
       pacientes[index].sort((a, b) => a.id - b.id)
     }
-       //proxima interrupcion
-        // tiempo fin interrupcion
+
   }
   ordenar();
 
@@ -69,6 +68,8 @@ const VectorTabla = () => {
               <th scope="col" colSpan="3" className="text-center">Tiempo Espera Promedio</th>
               
               <th scope="col" colSpan="3" className="text-center">Tiempo Espera Prom Emergencia</th>
+              <th scope="col" colSpan="14" className="text-center"></th>
+              {/* <th scope="col" colSpan="1" className="text-center"></th>
               <th scope="col" colSpan="1" className="text-center"></th>
               <th scope="col" colSpan="1" className="text-center"></th>
               <th scope="col" colSpan="1" className="text-center"></th>
@@ -80,8 +81,7 @@ const VectorTabla = () => {
               <th scope="col" colSpan="1" className="text-center"></th>
               <th scope="col" colSpan="1" className="text-center"></th>
               <th scope="col" colSpan="1" className="text-center"></th>
-              <th scope="col" colSpan="1" className="text-center"></th>
-              <th scope="col" colSpan="1" className="text-center"></th>
+              <th scope="col" colSpan="1" className="text-center"></th> */}
 
 
               <th scope="col" className="text-center" colSpan="20">Pacientes</th>             
@@ -165,7 +165,7 @@ const VectorTabla = () => {
               <th scope="col" colSpan="1" className="text-center">Cantidad Pacientes Atendidos</th>
               <th scope="col" colSpan="1" className="text-center">Promedio Edades Pacientes</th>
               <th scope="col" colSpan="1" className="text-center">Prob. Llegada Con Servicio Lleno</th>
-
+              <th scope="col" colSpan="1" className="text-center">Cantidad Pac. Atendidos Por Hora</th>
               <th scope="col" className='text-center' colSpan="1">Estado</th>
               <th scope="col" colSpan="1">Especialidad</th>
               <th scope="col" colSpan="1">Tiempo Espera</th>
@@ -236,11 +236,11 @@ const VectorTabla = () => {
                 {/* Estadistica */}
                 <td className="text-center">{fila.acumuladorTiempoEspera == null ? null : parseFloat(fila.acumuladorTiempoEspera).toFixed(2)}</td>
                 <td className="text-center">{fila.cantidadPacientesAtendidos}</td>
-                <td className="text-center">{fila.tiempoEsperaPromedio == null ? null : parseFloat(fila.tiempoEsperaPromedio).toFixed(2)}</td>
+                <td className="text-center fw-bold">{fila.tiempoEsperaPromedio == null || isNaN(parseFloat(fila.tiempoEsperaPromedio))? parseFloat(0).toFixed(2): parseFloat(fila.tiempoEsperaPromedio).toFixed(2)}</td>
 
                 <td className="text-center">{fila.acumuladorTiempoEsperaPacientesEmergencia == null ? null : parseFloat(fila.acumuladorTiempoEsperaPacientesEmergencia).toFixed(2)}</td>
                 <td className="text-center">{fila.cantidadAcumuladaPacientesEmergencia}</td>
-                <td className="text-center">
+                <td className="text-center fw-bold">
                 {fila.tiempoEsperaPacientesEmergenciaPromedio == null || isNaN(parseFloat(fila.tiempoEsperaPacientesEmergenciaPromedio))? parseFloat(0).toFixed(2): parseFloat(fila.tiempoEsperaPacientesEmergenciaPromedio).toFixed(2)}</td>
 
 
@@ -267,6 +267,8 @@ const VectorTabla = () => {
 
                 <td className='text-center fw-bold'>{fila.promedioEdadesPacientesAtendidos}</td>
                 <td className='text-center fw-bold'>{parseFloat(fila.probabilidadLlegadaConServicioLleno).toFixed(2)}</td>
+
+                <td className='text-center fw-bold'>{parseFloat(fila.cantidadPacientesAtendidosPorHora).toFixed(2)}</td>
 
                 {pacientes[index].map((paciente) => (
                   <React.Fragment key={paciente.id}>

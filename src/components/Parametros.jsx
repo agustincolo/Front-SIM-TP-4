@@ -15,6 +15,7 @@ const Parametros = () => {
   const [mediaAtencionEspecialidad, setMediaAtencionEspecialidad] = useState('4');
   const [mediaAtencionTerapia, setMediaAtencionTerapia] = useState('5');
   const [mediaAtencionRecepcion, setMediaAtencionRecepcion] = useState('2');
+  const [cantidadServidores, setCantidadServidores] = useState('3');
 
   const navigate = useNavigate();
 
@@ -26,6 +27,8 @@ const Parametros = () => {
     console.log("Desde:", desdeSimulaciones);
 
     try {
+      console.log(cantidadServidores)
+
       const response = await PostSimulacion({
         lineasSimular: cantidadSimulaciones,
         desdeDondeMostrar: desdeSimulaciones,
@@ -199,6 +202,21 @@ const Parametros = () => {
               value={mediaAtencionRecepcion}
               onChange={(e) => setMediaAtencionRecepcion(e.target.value)}
             />
+
+          </div>
+          <div className="form-group mt-3">
+            <label htmlFor="CantidadMedicosGeneral" className="texto pb-2">Cantidad Medicos General</label>
+            <select
+              type="text"
+              className="form-control"
+              id="cantidadMedicosGeneral"
+              value={cantidadServidores}
+              onChange={(e) => setCantidadServidores(e.target.value)}
+              
+            >
+               <option value="2">2</option>
+               <option value="3">3</option>
+            </select>
 
           </div>
           <button type="submit" className="btn btn-info mt-3 boton">Aceptar</button>
